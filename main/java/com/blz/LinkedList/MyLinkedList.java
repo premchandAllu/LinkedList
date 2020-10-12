@@ -4,6 +4,7 @@ public class MyLinkedList<K> {
 
 	public INode head;
 	public INode tail;
+	public int size = 0;
 
 	public MyLinkedList() {
 		this.head = null;
@@ -46,38 +47,36 @@ public class MyLinkedList<K> {
 		this.head = head.getNext();
 		return tempNode;
 	}
-	
+
 	public INode popLast() {
-		INode tempNode =head;
-		while(!tempNode.getNext().equals(tail)) {
-			tempNode=tempNode.getNext();
+		INode tempNode = head;
+		while (!tempNode.getNext().equals(tail)) {
+			tempNode = tempNode.getNext();
 		}
-		this.tail=tempNode;
-		tempNode=tempNode.getNext();
+		this.tail = tempNode;
+		tempNode = tempNode.getNext();
 		return tempNode;
 	}
-	
+
 	public INode search(K key) {
-		INode tempNode=head;
-		while(tempNode!=null && tempNode.getNext()!=null) {
-			if(tempNode.getKey().equals(key)) {
+		INode tempNode = head;
+		while (tempNode != null && tempNode.getNext() != null) {
+			if (tempNode.getKey().equals(key)) {
 				return tempNode;
-			}
-			else {
-				tempNode=tempNode.getNext();
+			} else {
+				tempNode = tempNode.getNext();
 			}
 		}
 		return null;
 	}
-	
-	public INode searchAndInsert(K key,INode newNode) {
-		INode tempNode=head;
-		while(tempNode!=null && tempNode.getNext()!=null) {
-			if(tempNode.getKey().equals(key)) {
+
+	public INode searchAndInsert(K key, INode newNode) {
+		INode tempNode = head;
+		while (tempNode != null && tempNode.getNext() != null) {
+			if (tempNode.getKey().equals(key)) {
 				return tempNode;
-			}
-			else {
-				tempNode=tempNode.getNext();
+			} else {
+				tempNode = tempNode.getNext();
 			}
 		}
 		INode tempNode1 = tempNode.getNext();
@@ -86,6 +85,31 @@ public class MyLinkedList<K> {
 		return tempNode;
 	}
 
+	public INode deleteAndReturnSizeOfList(K key) {
+		INode tempNode = head;
+		while (tempNode != null && tempNode.getNext() != null) {
+			if (tempNode.getKey().equals(key)) {
+				break;
+			} else {
+				tempNode = tempNode.getNext();
+			}
+		}
+		tempNode.setNext(tempNode.getNext().getNext());
+		size--;
+		return tempNode;
+	}
+
+	public int size() {
+		INode<K> n = head;
+		// for each node in the linked list
+		while (n != null) {
+			size++;
+			n = n.getNext();
+		}
+		// if it is not found in list, return false
+		return size;
+	}
+	
 	public void printMyNodes() {
 		StringBuffer myNodes = new StringBuffer("My Nodes : ");
 		INode tempNode = head;

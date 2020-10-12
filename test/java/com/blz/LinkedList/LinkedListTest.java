@@ -56,11 +56,12 @@ public class LinkedListTest {
 		MyNode<Integer> thirdNode = new MyNode<Integer>(70);
 		MyLinkedList myLinkedList = new MyLinkedList();
 		myLinkedList.add(firstNode);
-		myLinkedList.add(secondNode);
-		myLinkedList.add(thirdNode);
+		myLinkedList.append(secondNode);
+		myLinkedList.append(thirdNode);
 		myLinkedList.pop();
-		boolean result = myLinkedList.head.equals(firstNode);
-		Assert.assertFalse(result);
+		boolean result = myLinkedList.head.equals(secondNode)
+				&& myLinkedList.tail.equals(thirdNode);
+		Assert.assertTrue(result);
 	}
 	
 	@Test
@@ -70,11 +71,11 @@ public class LinkedListTest {
 		MyNode<Integer> thirdNode = new MyNode<Integer>(70);
 		MyLinkedList myLinkedList = new MyLinkedList();
 		myLinkedList.add(firstNode);
-		myLinkedList.add(secondNode);
-		myLinkedList.add(thirdNode);
+		myLinkedList.append(secondNode);
+		myLinkedList.append(thirdNode);
 		myLinkedList.popLast();
-		boolean result = myLinkedList.tail.equals(thirdNode);
-		Assert.assertFalse(result);
+		boolean result = myLinkedList.head.equals(firstNode) && myLinkedList.head.getNext().equals(secondNode);
+		Assert.assertTrue(result);
 	}
 	
 	@Test
@@ -84,8 +85,8 @@ public class LinkedListTest {
 		MyNode<Integer> thirdNode = new MyNode<Integer>(70);
 		MyLinkedList myLinkedList = new MyLinkedList();
 		myLinkedList.add(firstNode);
-		myLinkedList.add(secondNode);
-		myLinkedList.add(thirdNode);
+		myLinkedList.append(secondNode);
+		myLinkedList.append(thirdNode);
 		MyNode<Integer> search = (MyNode<Integer>) myLinkedList.search(30);
 		assertEquals(secondNode, search);
 	}
@@ -102,5 +103,21 @@ public class LinkedListTest {
 		MyNode<Integer> fourthNode = new MyNode<Integer>(40);
 		MyNode<Integer> search = (MyNode<Integer>) myLinkedList.searchAndInsert(30,fourthNode);
 		assertEquals(secondNode, search);
+	}
+	
+	@Test
+	public void deleteAndGetSizeOfListTest() {
+		MyNode<Integer> firstNode = new MyNode<Integer>(56);
+		MyNode<Integer> secondNode = new MyNode<Integer>(30);
+		MyNode<Integer> thirdNode = new MyNode<Integer>(40);
+		MyNode<Integer> fourthNode = new MyNode<Integer>(70);
+		MyLinkedList myLinkedList = new MyLinkedList();
+		myLinkedList.add(firstNode);
+		myLinkedList.append(secondNode);
+		myLinkedList.append(thirdNode);
+		myLinkedList.append(fourthNode);
+		MyNode<Integer> delete = (MyNode<Integer>) myLinkedList.deleteAndReturnSizeOfList(40);
+		assertEquals(thirdNode, delete);
+		System.out.println(myLinkedList.size());
 	}
 }
