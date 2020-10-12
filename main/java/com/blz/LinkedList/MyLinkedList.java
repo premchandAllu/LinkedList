@@ -85,18 +85,16 @@ public class MyLinkedList<K> {
 		return tempNode;
 	}
 
-	public INode deleteAndReturnSizeOfList(K key) {
-		INode tempNode = head;
-		while (tempNode != null && tempNode.getNext() != null) {
-			if (tempNode.getKey().equals(key)) {
-				break;
-			} else {
-				tempNode = tempNode.getNext();
-			}
+	public void deleteAndReturnSizeOfList(INode deleteNode) {
+		INode tempNode = this.head;
+		INode prev = null;
+
+		while (tempNode!= null && tempNode.getKey()!=deleteNode.getKey()) {
+			prev = tempNode;
+			tempNode = tempNode.getNext();
 		}
-		tempNode.setNext(tempNode.getNext().getNext());
-		size--;
-		return tempNode;
+		prev.setNext(tempNode.getNext());
+		tempNode.setNext(null);
 	}
 
 	public int size() {
@@ -109,7 +107,38 @@ public class MyLinkedList<K> {
 		// if it is not found in list, return false
 		return size;
 	}
-	
+
+	public <K extends Comparable<K>> void sortList() {
+		INode<K> current = this.head;
+		INode<K> index = null;
+		K temp = null;
+		if (this.head == null) {
+			return;
+		} else {
+			while (current != null) {
+				index = current.getNext();
+				while(index!=null) {
+					if(maximum(index.getKey(),current.getKey())) {
+						temp=current.getKey();
+						current.setKey(index.getKey());
+						index.setKey(temp);
+					}
+					index=index.getNext();
+				}
+				current=current.getNext();
+			}
+		}
+	}
+
+	private static <K extends Comparable<K>> boolean maximum(K key1, K key2) {
+		K max=key1;
+		if(key2.compareTo(max)>0) {
+			return true;
+		}
+		else
+			return false;
+	}
+
 	public void printMyNodes() {
 		StringBuffer myNodes = new StringBuffer("My Nodes : ");
 		INode tempNode = head;
