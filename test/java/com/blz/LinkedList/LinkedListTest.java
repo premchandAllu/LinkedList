@@ -1,20 +1,37 @@
 package com.blz.LinkedList;
 
+import static org.junit.Assert.*;
+
 import org.junit.Assert;
 import org.junit.Test;
 
 public class LinkedListTest {
+
 	@Test
-	public void given3NumbersWhenAddedToLinkedListShouldBeAddedOnTop() {
-		MyNode<Integer> myFirstNode = new MyNode<>(70);
-		MyNode<Integer> mySecondNode = new MyNode<>(30);
-		MyNode<Integer> myThirdNode = new MyNode<>(56);
+	public void given3NumbersAddedFromTopTest() {
+		MyNode<Integer> firstNode = new MyNode<Integer>(70);
+		MyNode<Integer> secondNode = new MyNode<Integer>(30);
+		MyNode<Integer> thirdNode = new MyNode<Integer>(56);
 		MyLinkedList myLinkedList = new MyLinkedList();
-		myLinkedList.add(myFirstNode);
-		myLinkedList.add(mySecondNode);
-		myLinkedList.add(myThirdNode);
-		boolean result = myLinkedList.head.equals(myThirdNode) && myLinkedList.head.getNext().equals(mySecondNode)
-				&& myLinkedList.tail.equals(myFirstNode);
+		myLinkedList.add(firstNode);
+		myLinkedList.add(secondNode);
+		myLinkedList.add(thirdNode);
+		boolean result = myLinkedList.head.equals(thirdNode) && myLinkedList.head.getNext().equals(secondNode)
+				&& myLinkedList.tail.equals(firstNode);
+		Assert.assertTrue(result);
+	}
+
+	@Test
+	public void given3NumbersAppendedFromLastTest() {
+		MyNode<Integer> firstNode = new MyNode<Integer>(56);
+		MyNode<Integer> secondNode = new MyNode<Integer>(30);
+		MyNode<Integer> thirdNode = new MyNode<Integer>(70);
+		MyLinkedList myLinkedList = new MyLinkedList();
+		myLinkedList.add(firstNode);
+		myLinkedList.add(secondNode);
+		myLinkedList.add(thirdNode);
+		boolean result = myLinkedList.head.equals(thirdNode) && myLinkedList.head.getNext().equals(secondNode)
+				&& myLinkedList.tail.equals(firstNode);
 		Assert.assertTrue(result);
 	}
 }
